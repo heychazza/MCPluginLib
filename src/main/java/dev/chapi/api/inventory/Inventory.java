@@ -1,12 +1,15 @@
 package dev.chapi.api.inventory;
 
+import dev.chapi.api.exception.InvalidInventoryException;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -23,13 +26,25 @@ public class Inventory implements Listener {
     private UUID uuid;
     private org.bukkit.inventory.Inventory yourInventory;
     private Map<Integer, GUIAction> actions;
+    private boolean persist;
 
-    public Inventory(int invSize, String invName, JavaPlugin plugin) {
+    public Inventory(Object sizeOrType, String invName, JavaPlugin plugin) throws InvalidInventoryException {
         uuid = UUID.randomUUID();
-        yourInventory = Bukkit.createInventory(null, invSize, invName);
+
+        if (sizeOrType instanceof Integer) {
+            yourInventory = Bukkit.createInventory(null, (Integer) sizeOrType, invName);
+        } else if (sizeOrType instanceof InventoryType) {
+            yourInventory = Bukkit.createInventory(null, (InventoryType) sizeOrType, invName);
+        } else throw new InvalidInventoryException();
+
         actions = new HashMap<>();
         Bukkit.getPluginManager().registerEvents(this, plugin);
         inventoriesByUUID.put(getUuid(), this);
+        persist = false;
+    }
+
+    public void setPersist(boolean persist) {
+        this.persist = persist;
     }
 
     public void setItem(int slot, ItemStack stack, GUIAction action) {
@@ -59,6 +74,10 @@ public class Inventory implements Listener {
         return uuid;
     }
 
+    public boolean isPersistent() {
+        return persist;
+    }
+
     public void open(Player p) {
         openInventories.put(p.getUniqueId(), getUuid());
         p.openInventory(get());
@@ -70,12 +89,15 @@ public class Inventory implements Listener {
 
     public void delete() {
         for (Player p : Bukkit.getOnlinePlayers()) {
-            UUID u = openInventories.get(p.getUniqueId());
-            if (u.equals(getUuid())) {
-                p.closeInventory();
+            if (openInventories.containsKey(p.getUniqueId())) {
+                UUID u = openInventories.get(p.getUniqueId());
+                if (u == getUuid()) {
+                    openInventories.remove(u);
+                }
             }
         }
         inventoriesByUUID.remove(getUuid());
+        HandlerList.unregisterAll(this);
     }
 
     @EventHandler
@@ -83,14 +105,15 @@ public class Inventory implements Listener {
         if (!(e.getWhoClicked() instanceof Player)) {
             return;
         }
+
         Player player = (Player) e.getWhoClicked();
         UUID playerUUID = player.getUniqueId();
 
-        UUID inventoryUUID = Inventory.openInventories.get(playerUUID);
+        UUID inventoryUUID = openInventories.get(playerUUID);
         if (inventoryUUID != null) {
             e.setCancelled(true);
-            Inventory gui = Inventory.getInventoriesByUUID().get(inventoryUUID);
-            Inventory.GUIAction action = gui.getActions().get(e.getSlot());
+            Inventory gui = getInventoriesByUUID().get(inventoryUUID);
+            GUIAction action = gui.getActions().get(e.getSlot());
 
             if (action != null) {
                 action.click(player, e.getClick());
@@ -100,12 +123,16 @@ public class Inventory implements Listener {
 
     @EventHandler
     public void onClose(InventoryCloseEvent e) {
-        Inventory.openInventories.remove(e.getPlayer().getUniqueId());
+        if (!isPersistent()) {
+            delete();
+        } else {
+            openInventories.remove(e.getPlayer().getUniqueId());
+        }
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e) {
-        Inventory.openInventories.remove(e.getPlayer().getUniqueId());
+        Player p = e.getPlayer();
     }
 
     public interface GUIAction {

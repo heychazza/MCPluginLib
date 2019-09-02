@@ -1,14 +1,16 @@
 package dev.chapi.plugin;
 
+import dev.chapi.api.exception.InvalidInventoryException;
 import dev.chapi.api.exception.InvalidMaterialException;
 import dev.chapi.api.inventory.Inventory;
 import dev.chapi.api.item.ItemBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class ChapiPlugin extends JavaPlugin implements Listener {
 
@@ -36,22 +38,20 @@ public class ChapiPlugin extends JavaPlugin implements Listener {
 
     }
 
+    private void createInv(Player p) {
+        Inventory inventory = null;
+        try {
+            inventory = new Inventory(18, "Chapi | Inventory Test", JavaPlugin.getPlugin(ChapiPlugin.class));
+            inventory.setItem(1, new ItemBuilder(Material.DIAMOND.name()).getItem(), (player, action) -> player.sendMessage("Hi, you interacted with me using " + action.name() + "."));
+        } catch (InvalidInventoryException | InvalidMaterialException ex) {
+            ex.printStackTrace();
+        }
+
+        inventory.open(p);
+    }
+
     @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
-
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                Inventory inventory = new Inventory(18, "Chapi | Inventory Test", JavaPlugin.getPlugin(ChapiPlugin.class));
-                try {
-                    inventory.setItem(1, new ItemBuilder("DIRT").getItem(), (player, action) -> player.sendMessage("Hi, you interacted with me using " + action.name() + "."));
-                } catch (InvalidMaterialException ex) {
-                    ex.printStackTrace();
-                }
-
-                inventory.open(e.getPlayer());
-
-            }
-        }.runTaskLater(this, 5);
+    public void onChat(PlayerChatEvent e) {
+        createInv(e.getPlayer());
     }
 }
