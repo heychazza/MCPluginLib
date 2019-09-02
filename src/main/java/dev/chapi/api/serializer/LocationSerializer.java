@@ -5,8 +5,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-import java.util.UUID;
-
 public class LocationSerializer {
     public static String toString(Location loc) throws InvalidLocationException {
         if(loc.getWorld() == null) throw new InvalidLocationException();
@@ -18,8 +16,7 @@ public class LocationSerializer {
         double x = Double.parseDouble(parts[0]);
         double y = Double.parseDouble(parts[1]);
         double z = Double.parseDouble(parts[2]);
-        UUID u = UUID.fromString(parts[3]);
-        World w = Bukkit.getServer().getWorld(u);
+        World w = Bukkit.getServer().getWorld(parts[3]);
 
         if(w == null) throw new InvalidLocationException();
         return new Location(w, x, y, z);
