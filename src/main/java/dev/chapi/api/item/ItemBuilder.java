@@ -54,6 +54,7 @@ public class ItemBuilder {
     }
 
     public ItemStack getItem() {
+        item.setItemMeta(itemMeta);
         return item;
     }
 }
