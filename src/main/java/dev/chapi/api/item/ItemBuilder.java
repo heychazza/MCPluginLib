@@ -16,12 +16,13 @@ public class ItemBuilder {
     private ItemMeta itemMeta;
 
     public ItemBuilder(String material) throws InvalidMaterialException {
-        Material materialObj = Material.getMaterial(material.toUpperCase());
+        material = material.toUpperCase();
+        Material materialObj = Material.getMaterial(material);
         if (materialObj == null) {
-            throw new InvalidMaterialException(material.toUpperCase() + " doesn't exist.");
+            throw new InvalidMaterialException(material);
         }
 
-        item = new ItemStack(item);
+        item = new ItemStack(materialObj);
         itemMeta = item.getItemMeta();
     }
 
@@ -54,10 +55,15 @@ public class ItemBuilder {
             }
 
             if (itemFlag == null) {
-                throw new InvalidFlagException(flag + " doesn't exist.");
+                throw new InvalidFlagException(flag);
             }
             itemMeta.addItemFlags(ItemFlag.valueOf(flag));
         }
+        return this;
+    }
+
+    public ItemBuilder withEnchant(Enchantment enchant, int level) {
+        itemMeta.addEnchant(enchant, level, false);
         return this;
     }
 
@@ -73,7 +79,7 @@ public class ItemBuilder {
         }
 
         if (enchantment == null) {
-            throw new InvalidEnchantException(enchant + " doesn't exist.");
+            throw new InvalidEnchantException(enchant);
         }
         itemMeta.addEnchant(enchantment, level, false);
         return this;

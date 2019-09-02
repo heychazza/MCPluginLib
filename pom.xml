@@ -10,7 +10,7 @@
 
     <properties>
         <plugin>Chapi</plugin>
-        <package>${groupId}.${plugin}</package>
+        <package>${groupId}.plugin.${plugin}Plugin</package>
     </properties>
 
     <build>
