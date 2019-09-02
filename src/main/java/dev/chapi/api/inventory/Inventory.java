@@ -34,8 +34,12 @@ public class Inventory implements Listener {
         if (sizeOrType instanceof Integer) {
             yourInventory = Bukkit.createInventory(null, (Integer) sizeOrType, invName);
         } else if (sizeOrType instanceof InventoryType) {
-            yourInventory = Bukkit.createInventory(null, (InventoryType) sizeOrType, invName);
-        } else throw new InvalidInventoryException();
+            try {
+                yourInventory = Bukkit.createInventory(null, (InventoryType) sizeOrType, invName);
+            } catch (NoSuchFieldError e) {
+                throw new InvalidInventoryException("You need to specify a valid inventory type.");
+            }
+        } else throw new InvalidInventoryException("You need to specify a valid inventory size or type.");
 
         actions = new HashMap<>();
         Bukkit.getPluginManager().registerEvents(this, plugin);
@@ -45,6 +49,14 @@ public class Inventory implements Listener {
 
     public void setPersist(boolean persist) {
         this.persist = persist;
+    }
+
+    public void addItem(ItemStack stack, GUIAction action) {
+        int slot = yourInventory.firstEmpty();
+        yourInventory.addItem(stack);
+        if (action != null) {
+            actions.put(slot, action);
+        }
     }
 
     public void setItem(int slot, ItemStack stack, GUIAction action) {

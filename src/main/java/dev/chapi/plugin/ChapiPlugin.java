@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -41,8 +42,8 @@ public class ChapiPlugin extends JavaPlugin implements Listener {
     private void createInv(Player p) {
         Inventory inventory = null;
         try {
-            inventory = new Inventory(18, "Chapi | Inventory Test", JavaPlugin.getPlugin(ChapiPlugin.class));
-            inventory.setItem(1, new ItemBuilder(Material.DIAMOND.name()).getItem(), (player, action) -> player.sendMessage("Hi, you interacted with me using " + action.name() + "."));
+            inventory = new Inventory(InventoryType.WORKBENCH, "Chapi | Inventory Test", JavaPlugin.getPlugin(ChapiPlugin.class));
+            inventory.addItem(new ItemBuilder(Material.DIAMOND.name()).getItem(), (player, action) -> player.sendMessage("Hi, you interacted with me using " + action.name() + "."));
         } catch (InvalidInventoryException | InvalidMaterialException ex) {
             ex.printStackTrace();
         }
