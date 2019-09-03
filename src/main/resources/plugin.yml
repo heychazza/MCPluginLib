@@ -3,3 +3,7 @@ version: ${project.version}
 main: ${package}
 author: Chazza
 website: https://chapi.dev/
+
+commands:
+  guitest:
+    description: "Wow"

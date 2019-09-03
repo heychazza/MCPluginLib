@@ -1,5 +1,6 @@
 package dev.chapi.plugin;
 
+import dev.chapi.api.command.CommandManager;
 import dev.chapi.api.exception.InvalidInventoryException;
 import dev.chapi.api.exception.InvalidMaterialException;
 import dev.chapi.api.general.StringUtil;
@@ -15,11 +16,20 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Arrays;
+
 public class ChapiPlugin extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(this, this);
+
+        CommandManager commandManager = new CommandManager(Arrays.asList(GUITesterCommand.class), "guitest", this);
+        commandManager.setMainCommand(GUITestCommand.class);
+        commandManager.getLocale().setNoPermission("&cYou cannot do that..");
+        commandManager.getLocale().setUnknownCommand("&7Unknown, try /guitest help.");
+        commandManager.getLocale().setUsage("&7Please use &b{usage}&7.");
+        commandManager.getLocale().setPlayerOnly("&cConsole isn't currently supported.");
 /*        try {
             new ItemBuilder("DIRTS")
                     .withName("&6Golden Dirt")
@@ -59,6 +69,7 @@ public class ChapiPlugin extends JavaPlugin implements Listener {
             ex.printStackTrace();
         }
 
+        assert inventory != null;
         inventory.open(p);
     }
 
