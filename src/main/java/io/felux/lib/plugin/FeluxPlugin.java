@@ -30,6 +30,8 @@ public class FeluxPlugin extends JavaPlugin implements Listener {
         commandManager.getLocale().setUnknownCommand("&7Unknown, try /guitest help.");
         commandManager.getLocale().setUsage("&7Please use &b{usage}&7.");
         commandManager.getLocale().setPlayerOnly("&cConsole isn't currently supported.");
+
+        commandManager.getLocale().setNoPermission(getConfig().getString("messages.permission", "&cNo permission to do that."));
 /*        try {
             new ItemBuilder("DIRTS")
                     .withName("&6Golden Dirt")

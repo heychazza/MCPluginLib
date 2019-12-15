@@ -120,16 +120,15 @@
 
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-1.14</artifactId>
+            <artifactId>spigot</artifactId>
             <version>1.14.4-R0.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>D:/Documents/Development/SpigotJars/spigot-1.14.4-R0.1-SNAPSHOT-latest.jar</systemPath>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>me.clip</groupId>
-            <artifactId>deluxechat</artifactId>
-            <version>1.14.4</version>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>1.15-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
