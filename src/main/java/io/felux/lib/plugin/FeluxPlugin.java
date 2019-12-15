@@ -24,7 +24,7 @@ public class FeluxPlugin extends JavaPlugin implements Listener {
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(this, this);
 
-        CommandManager commandManager = new CommandManager(Arrays.asList(GUITesterCommand.class), "guitest", this);
+        CommandManager commandManager = new CommandManager(Arrays.asList(), "opengui", this);
         commandManager.setMainCommand(GUITestCommand.class);
         commandManager.getLocale().setNoPermission("&cYou cannot do that..");
         commandManager.getLocale().setUnknownCommand("&7Unknown, try /guitest help.");
@@ -49,32 +49,5 @@ public class FeluxPlugin extends JavaPlugin implements Listener {
         }*/
 
 
-    }
-
-    private void createInv(Player p) {
-        Inventory inventory = null;
-        try {
-            inventory = new Inventory(InventoryType.HOPPER, "Chapi | Inventory Test", JavaPlugin.getPlugin(FeluxPlugin.class));
-            inventory.setItem(0, new ItemBuilder(Material.EMERALD.name()).withName("&a&lHmm..").withLore("&7I can only be shift clicked..", "&7Odd..").getItem(), (player, action) -> {
-                if(action == ClickType.SHIFT_LEFT) {
-                    player.closeInventory();
-                    player.setLevel(100);
-                    player.sendMessage(StringUtil.translate("&7You did it! &a(Insert 'wow' meme)"));
-                } else {
-                    player.sendMessage(StringUtil.translate("&cYou tried to " + action.name() + " this item.. but failed."));
-                }
-            });
-            inventory.addItem(new ItemBuilder(Material.DIAMOND.name()).getItem(), (player, action) -> player.sendMessage("Hi, you interacted with me using " + action.name() + "."));
-        } catch (InvalidInventoryException | InvalidMaterialException ex) {
-            ex.printStackTrace();
-        }
-
-        assert inventory != null;
-        inventory.open(p);
-    }
-
-    @EventHandler
-    public void onChat(PlayerChatEvent e) {
-        if (e.getMessage().equalsIgnoreCase("opengui")) createInv(e.getPlayer());
     }
 }
