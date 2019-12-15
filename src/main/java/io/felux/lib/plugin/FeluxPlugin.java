@@ -1,6 +1,8 @@
 package io.felux.lib.plugin;
 
 import io.felux.lib.api.command.CommandManager;
+import io.felux.lib.api.exception.InvalidMaterialException;
+import io.felux.lib.api.item.ItemBuilder;
 import io.felux.lib.plugin.command.ASubCommand;
 import io.felux.lib.plugin.command.YourMainCommand;
 import org.bukkit.Bukkit;
@@ -41,6 +43,12 @@ public class FeluxPlugin extends JavaPlugin implements Listener {
         } catch (InvalidLocationException e) {
             e.printStackTrace();
         }*/
+
+        try {
+            new ItemBuilder("DIRT").withNBTString("some-key", "value");
+        } catch (InvalidMaterialException e) {
+            e.printStackTrace();
+        }
 
 
     }

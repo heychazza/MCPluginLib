@@ -16,25 +16,28 @@ import java.util.*;
 
 public class ItemBuilder {
     private Material material;
-    private int data;
+    private int data = 0;
 
     // Item Meta
-    private String displayName;
-    private List<String> lore;
-    private List<ItemFlag> flags;
-    private Map<Enchantment, Integer> enchants;
+    private String displayName = "";
+    private List<String> lore = new ArrayList<>();
+    private List<ItemFlag> flags = new ArrayList<>();
+    private Map<Enchantment, Integer> enchants = Maps.newConcurrentMap();
 
     // NBT Data
-    private Map<String, String> nbtStrings;
+    private Map<String, String> nbtStrings = Maps.newConcurrentMap();
+
+    public ItemBuilder(Material material) {
+        this.material = material;
+    }
 
     public ItemBuilder(String material) throws InvalidMaterialException {
         this.material = ItemUtil.getMaterial(material);
-        data = 0;
-        lore = new ArrayList<>();
-        flags = new ArrayList<>();
-        enchants = Maps.newConcurrentMap();
+    }
 
-        nbtStrings = Maps.newConcurrentMap();
+    public ItemBuilder withData(int data) {
+        this.data = data;
+        return this;
     }
 
     public ItemBuilder withName(String displayName) {
