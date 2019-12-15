@@ -9,6 +9,9 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Collections;
+import java.util.List;
+
 public class ItemBuilder {
 
     private ItemStack item;
@@ -24,7 +27,17 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder withLore(String lore) {
+        itemMeta.setLore(Collections.singletonList(StringUtil.translate(lore)));
+        return this;
+    }
+
     public ItemBuilder withLore(String... lore) {
+        itemMeta.setLore(StringUtil.translate(lore));
+        return this;
+    }
+
+    public ItemBuilder withLore(List<String> lore) {
         itemMeta.setLore(StringUtil.translate(lore));
         return this;
     }

@@ -44,6 +44,7 @@ public enum VanillaEnchant
         return this.vanillaName;
     }
     
+    @SuppressWarnings("deprecation")
     public org.bukkit.enchantments.Enchantment getEnchantment() {
         return org.bukkit.enchantments.Enchantment.getByName(this.vanillaName);
     }

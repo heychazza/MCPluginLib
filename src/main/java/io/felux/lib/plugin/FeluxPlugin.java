@@ -1,6 +1,8 @@
 package io.felux.lib.plugin;
 
 import io.felux.lib.api.command.CommandManager;
+import io.felux.lib.plugin.command.ASubCommand;
+import io.felux.lib.plugin.command.YourMainCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
