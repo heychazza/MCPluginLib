@@ -1,6 +1,6 @@
-package dev.chapi.api.inventory;
+package io.felux.lib.api.inventory;
 
-import dev.chapi.api.exception.InvalidInventoryException;
+import io.felux.lib.api.exception.InvalidInventoryException;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

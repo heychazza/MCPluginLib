@@ -1,4 +1,4 @@
-package dev.chapi.api.general;
+package io.felux.lib.api.general;
 
 import org.bukkit.ChatColor;
 

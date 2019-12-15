@@ -1,6 +1,6 @@
-package dev.chapi.api.command;
+package io.felux.lib.api.command;
 
-import dev.chapi.api.general.StringUtil;
+import io.felux.lib.api.general.StringUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;

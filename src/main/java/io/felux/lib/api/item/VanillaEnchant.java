@@ -1,4 +1,4 @@
-package dev.chapi.api.item;
+package io.felux.lib.api.item;
 
 import java.util.Arrays;
 

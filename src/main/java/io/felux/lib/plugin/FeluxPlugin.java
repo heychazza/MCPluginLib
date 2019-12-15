@@ -1,11 +1,11 @@
-package dev.chapi.plugin;
+package io.felux.lib.plugin;
 
-import dev.chapi.api.command.CommandManager;
-import dev.chapi.api.exception.InvalidInventoryException;
-import dev.chapi.api.exception.InvalidMaterialException;
-import dev.chapi.api.general.StringUtil;
-import dev.chapi.api.inventory.Inventory;
-import dev.chapi.api.item.ItemBuilder;
+import io.felux.lib.api.command.CommandManager;
+import io.felux.lib.api.exception.InvalidInventoryException;
+import io.felux.lib.api.exception.InvalidMaterialException;
+import io.felux.lib.api.general.StringUtil;
+import io.felux.lib.api.inventory.Inventory;
+import io.felux.lib.api.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -18,7 +18,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
 
-public class ChapiPlugin extends JavaPlugin implements Listener {
+public class FeluxPlugin extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
@@ -54,7 +54,7 @@ public class ChapiPlugin extends JavaPlugin implements Listener {
     private void createInv(Player p) {
         Inventory inventory = null;
         try {
-            inventory = new Inventory(InventoryType.HOPPER, "Chapi | Inventory Test", JavaPlugin.getPlugin(ChapiPlugin.class));
+            inventory = new Inventory(InventoryType.HOPPER, "Chapi | Inventory Test", JavaPlugin.getPlugin(FeluxPlugin.class));
             inventory.setItem(0, new ItemBuilder(Material.EMERALD.name()).withName("&a&lHmm..").withLore("&7I can only be shift clicked..", "&7Odd..").getItem(), (player, action) -> {
                 if(action == ClickType.SHIFT_LEFT) {
                     player.closeInventory();

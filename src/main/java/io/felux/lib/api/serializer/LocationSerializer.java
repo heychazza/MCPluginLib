@@ -1,6 +1,6 @@
-package dev.chapi.api.serializer;
+package io.felux.lib.api.serializer;
 
-import dev.chapi.api.exception.InvalidLocationException;
+import io.felux.lib.api.exception.InvalidLocationException;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;

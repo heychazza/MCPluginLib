@@ -1,8 +1,8 @@
-package dev.chapi.api.item;
+package io.felux.lib.api.item;
 
-import dev.chapi.api.exception.InvalidEnchantException;
-import dev.chapi.api.exception.InvalidFlagException;
-import dev.chapi.api.exception.InvalidMaterialException;
+import io.felux.lib.api.exception.InvalidEnchantException;
+import io.felux.lib.api.exception.InvalidFlagException;
+import io.felux.lib.api.exception.InvalidMaterialException;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;

@@ -1,4 +1,4 @@
-package dev.chapi.api.command;
+package io.felux.lib.api.command;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;

@@ -1,4 +1,4 @@
-package dev.chapi.api.exception;
+package io.felux.lib.api.exception;
 
 public class InvalidFlagException extends Exception {
     public InvalidFlagException(String errorMessage) {
