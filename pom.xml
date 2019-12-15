@@ -104,18 +104,16 @@
 
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-1.12</artifactId>
-            <version>spigot-1.12.2-R0.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>D:/Documents/Development/SpigotJars/spigot-1.12.2-R0.1-SNAPSHOT-latest.jar</systemPath>
+            <artifactId>spigot</artifactId>
+            <version>1.12-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-1.13</artifactId>
-            <version>spigot-1.13.2-R0.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>D:/Documents/Development/SpigotJars/spigot-1.13.2-R0.1-SNAPSHOT-latest.jar</systemPath>
+            <artifactId>spigot</artifactId>
+            <version>1.13.1-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>

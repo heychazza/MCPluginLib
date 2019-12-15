@@ -17,6 +17,27 @@ public void registerCommands() {
 }
 ```
 
+Inside of `YourMainCommand.class` you'll want to have:
+```java
+public class YourMainCommand {
+    @Command(permission = "feluxlib.maincmd")
+    public static void execute(final CommandSender sender, final YourPlugin plugin, final String[] args) {
+        // Your code here.
+    }
+}
+```
+
+Then inside of a sub-command, such as `ASubCommand.class` you'll want:
+```java
+public class ASubCommand {
+    @Command(permission = "feluxlib.sub", usage = "say", aliases = {"say"}, requiredArgs = 1)
+    public static void execute(final CommandSender sender, final FeluxPlugin plugin, final String[] args) {
+        String message = args[0];
+        Bukkit.getServer().broadcastMessage(StringUtil.translate("&c[Broadcast] &7" + message));
+    }
+}
+```
+
 This allows for user configuration, for example to use the configuration file we would do:
 ```java
 commandManager.getLocale().setNoPermission(getConfig().getString("messages.permission", "&cNo permission to do that."));
