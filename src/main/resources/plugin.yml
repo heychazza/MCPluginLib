@@ -5,5 +5,5 @@ author: Chazza
 website: https://felux.io/
 
 commands:
-  guitest:
+  feluxlib:
     description: "View the GUI."

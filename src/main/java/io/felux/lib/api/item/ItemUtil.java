@@ -1,11 +1,13 @@
 package io.felux.lib.api.item;
 
+import de.tr7zw.changeme.nbtapi.NBTItem;
 import io.felux.lib.api.exception.InvalidEnchantException;
 import io.felux.lib.api.exception.InvalidFlagException;
 import io.felux.lib.api.exception.InvalidMaterialException;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
+import org.bukkit.inventory.ItemStack;
 
 public class ItemUtil {
 
@@ -49,5 +51,11 @@ public class ItemUtil {
 
         if (enchantment == null) throw new InvalidEnchantException(enchant);
         return enchantment;
+    }
+
+    public static String getNBTString(ItemStack item, String key) {
+        NBTItem nbtItem = new NBTItem(item);
+        if (nbtItem.hasNBTData() && nbtItem.hasKey(key)) return nbtItem.getString(key);
+        return null;
     }
 }

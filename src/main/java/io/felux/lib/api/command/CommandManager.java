@@ -2,6 +2,7 @@ package io.felux.lib.api.command;
 
 import io.felux.lib.api.general.StringUtil;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -60,9 +61,15 @@ public class CommandManager {
                 }
             }
         }
-        plugin.getCommand(command).setExecutor(new CommandExecutor(this, plugin));
-        if (plugin.getCommand(command).getPlugin() != plugin) {
-            plugin.getLogger().warning("/" + command + " command is being handled by plugin other than " + plugin.getDescription().getName() + ". You must use /" + plugin.getName().toLowerCase() + ":" + command + " instead.");
+
+        PluginCommand pluginCommand = plugin.getCommand(command);
+
+        if (pluginCommand == null)
+            throw new RuntimeException("The /" + command + " command doesn't exist in plugin.yml!");
+
+        pluginCommand.setExecutor(new CommandExecutor(this, plugin));
+        if (pluginCommand.getPlugin() != plugin) {
+            throw new RuntimeException("/" + command + " command is being handled by plugin other than " + plugin.getDescription().getName() + ". You must use /" + plugin.getName().toLowerCase() + ":" + command + " instead.");
         }
     }
 
@@ -112,7 +119,7 @@ public class CommandManager {
                 }
 
                 if (commandAnnotation.requiredArgs() > args.length) {
-                    sender.sendMessage(locale.getUsage(command + commandAnnotation.usage()));
+                    sender.sendMessage(locale.getUsage("/" + mainCommand + " " + commandAnnotation.usage()));
                     return true;
                 }
 

@@ -3,18 +3,26 @@ package io.felux.lib.plugin;
 import io.felux.lib.api.command.CommandManager;
 import io.felux.lib.api.exception.InvalidMaterialException;
 import io.felux.lib.api.item.ItemBuilder;
+import io.felux.lib.api.item.ItemUtil;
 import io.felux.lib.plugin.command.ASubCommand;
 import io.felux.lib.plugin.command.YourMainCommand;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
 
-public class FeluxPlugin extends JavaPlugin implements Listener {
+public class FeluxLibPlugin extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
+
         Bukkit.getPluginManager().registerEvents(this, this);
 
         CommandManager commandManager = new CommandManager(Arrays.asList(ASubCommand.class), "feluxlib", this);
@@ -51,5 +59,24 @@ public class FeluxPlugin extends JavaPlugin implements Listener {
         }
 
 
+    }
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent e) {
+        Player player = e.getPlayer();
+        ItemBuilder itemBuilder = new ItemBuilder(Material.DIAMOND_SWORD)
+                .withName("&cLucky Sword")
+                .withLore("&7A powerful, strong sword.")
+                .withNBTString("sword-type", "strong");
+        player.getInventory().addItem(itemBuilder.getItem());
+    }
+
+    @EventHandler
+    public void onInteract(PlayerInteractEvent e) {
+        ItemStack item = e.getItem();
+        String swordType = ItemUtil.getNBTString(item, "sword-type");
+
+        if (swordType != null)
+            e.getPlayer().sendMessage("You have a " + swordType + " sword.");
     }
 }
