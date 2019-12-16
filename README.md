@@ -38,7 +38,7 @@ public class ASubCommand {
 }
 ```
 
-This allows for user configuration, for example to use the configuration file we would do:
+The locale system allows for user configuration, for example if we wanted to use our configuration file we would do:
 ```java
 commandManager.getLocale().setNoPermission(getConfig().getString("messages.permission", "&cNo permission to do that."));
 ```
@@ -74,4 +74,28 @@ As you see in the above, we set the NBT tag key `sword-type` which in our case g
         if (swordType != null && swordType.equalsIgnoreCase("strong"))
             e.getPlayer().sendMessage("You clicked the strong sword.");
     }
+```
+
+## Inventories
+Our inventory system makes GUIs easy to create while allowing for being dynamic. Below is a simple example where we've tidied an action to one of our items:
+```java
+        Inventory inventory = null;
+        try {
+            inventory = new Inventory(InventoryType.HOPPER, "Felux | Main Panel", JavaPlugin.getPlugin(FeluxLibPlugin.class));
+            inventory.setItem(0, new ItemBuilder(Material.EMERALD.name()).withName("&a&lSome Button").withLore("&7I can only be shift clicked..", "&7Try me!").getItem(), (player, action) -> {
+                if (action == ClickType.SHIFT_LEFT) {
+                    player.closeInventory();
+                    player.sendMessage(StringUtil.translate("&aWell done! &7You did it :)"));
+                } else {
+                    player.sendMessage(StringUtil.translate("&cHey! &7Nice try attempting to &c" + action.name() + " &7this item.."));
+                }
+            });
+            inventory.addItem(new ItemBuilder(Material.DIAMOND.name()).getItem(), (player, action) -> player.sendMessage("Hi, you interacted with me using " + action.name() + "."));
+        } catch (InvalidInventoryException | InvalidMaterialException ex) {
+            ex.printStackTrace();
+        }
+
+        if (inventory != null) {
+            inventory.open(p);
+        }
 ```
