@@ -45,3 +45,33 @@ commandManager.getLocale().setNoPermission(getConfig().getString("messages.permi
 
 These can also be changed on the fly, and not just on boot as these values are always referenced in the command system.
 
+## Items
+Our library provides an easy way to quickly and easily create itemstacks on the fly. For example, if you wanted to create a diamond sword that has a name, lore, enchants, item flags and nbt information:
+```java
+        // To build the item.
+        ItemBuilder swordBuilder = new ItemBuilder(Material.DIAMOND_SWORD)
+                .withName("&cLucky Sword")
+                .withLore("&7A powerful, strong sword.")
+                .withEnchant(Enchantment.KNOCKBACK, 1)
+                .withFlag(ItemFlag.HIDE_ENCHANTS)
+                .withData(0)
+                .withNBTString("sword-type", "strong");
+
+        // To get the itemstack itself.
+        ItemStack swordItem = swordBuilder.getItem();
+```
+
+As you see, this can be easily done on the fly and could easily use configuration values instead (e.g. a voucher item).
+
+#### NBT Data
+As you see in the above, we set the NBT tag key `sword-type` which in our case goes to the value `strong`. This is useful for checking if the player interacted with our item, due to its unique nbt tag. We can check if its our sword by the following code:
+```java
+    @EventHandler
+    public void onInteract(PlayerInteractEvent e) {
+        ItemStack item = e.getItem();
+        String swordType = ItemUtil.getNBTString(item, "sword-type");
+
+        if (swordType != null && swordType.equalsIgnoreCase("strong"))
+            e.getPlayer().sendMessage("You clicked the strong sword.");
+    }
+```

@@ -8,11 +8,13 @@ import io.felux.lib.plugin.command.ASubCommand;
 import io.felux.lib.plugin.command.YourMainCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -67,6 +69,9 @@ public class FeluxLibPlugin extends JavaPlugin implements Listener {
         ItemBuilder itemBuilder = new ItemBuilder(Material.DIAMOND_SWORD)
                 .withName("&cLucky Sword")
                 .withLore("&7A powerful, strong sword.")
+                .withEnchant(Enchantment.KNOCKBACK, 1)
+                .withFlag(ItemFlag.HIDE_ENCHANTS)
+                .withData(0)
                 .withNBTString("sword-type", "strong");
         player.getInventory().addItem(itemBuilder.getItem());
     }
