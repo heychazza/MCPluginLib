@@ -35,6 +35,7 @@ public class ItemUtil {
         return itemFlag;
     }
 
+    @SuppressWarnings("deprecation")
     public static Enchantment getEnchantment(String enchant) throws InvalidEnchantException {
         enchant = enchant.toUpperCase();
 
@@ -46,10 +47,7 @@ public class ItemUtil {
             }
         }
 
-        if (enchantment == null) {
-            throw new InvalidEnchantException(enchant);
-        }
-
+        if (enchantment == null) throw new InvalidEnchantException(enchant);
         return enchantment;
     }
 }
