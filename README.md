@@ -4,6 +4,23 @@ This is a lightweight and easy to use library for fast plugin creation. I create
 ## Features
 Our library comes with a few useful features to help with the base of the plugin, we look to expand this as we move forward.
 
+## Using the Library
+You'll need to add the Jitpack repository if you already haven't.
+```xml
+		<repository>
+		    <id>jitpack.io</id>
+		    <url>https://jitpack.io</url>
+		</repository>
+```
+
+Once you've done this, you'll need to add the dependency.
+```xml
+	<dependency>
+	    <groupId>com.github.Felux</groupId>
+	    <artifactId>Lib</artifactId>
+	    <version>-SNAPSHOT</version>
+	</dependency>
+```
 #### Command System
 To use this, you'll want a base similar to below:
 ```java
