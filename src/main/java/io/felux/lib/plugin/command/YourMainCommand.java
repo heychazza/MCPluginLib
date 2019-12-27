@@ -26,7 +26,7 @@ public class YourMainCommand {
     private static void createInv(Player p) {
         Inventory inventory = null;
         try {
-            inventory = new Inventory(InventoryType.HOPPER, "Felux | Main Panel", JavaPlugin.getPlugin(FeluxLibPlugin.class));
+            inventory = new Inventory(InventoryType.WORKBENCH, "Felux | Main Panel", JavaPlugin.getPlugin(FeluxLibPlugin.class));
             inventory.setItem(0, new ItemBuilder(Material.EMERALD.name()).withName("&a&lSome Button").withLore("&7I can only be shift clicked..", "&7Try me!").getItem(), (player, action) -> {
                 if (action == ClickType.SHIFT_LEFT) {
                     player.closeInventory();

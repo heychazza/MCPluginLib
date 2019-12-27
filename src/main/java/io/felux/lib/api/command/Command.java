@@ -12,6 +12,8 @@ public @interface Command {
 
     String usage() default "";
 
+    String about() default "No command description.";
+
     String permission() default "";
 
     int requiredArgs();
