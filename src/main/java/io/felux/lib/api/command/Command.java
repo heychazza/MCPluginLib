@@ -16,6 +16,6 @@ public @interface Command {
 
     String permission() default "";
 
-    int requiredArgs();
+    int requiredArgs() default 0;
 }
 
