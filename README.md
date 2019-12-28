@@ -1,4 +1,4 @@
-# FeluxLib
+# CIALib
 This is a lightweight and easy to use library for fast plugin creation. I created this merely as a base for all my plugins, without the need to manually copy classes many times throughout each project.
 
 ## Features
@@ -37,7 +37,7 @@ public void registerCommands() {
 Inside of `YourMainCommand.class` you'll want to have:
 ```java
 public class YourMainCommand {
-    @Command(permission = "feluxlib.maincmd")
+    @Command(permission = "cialib.maincmd")
     public static void execute(final CommandSender sender, final YourPlugin plugin, final String[] args) {
         // Your code here.
     }
@@ -47,8 +47,8 @@ public class YourMainCommand {
 Then inside of a sub-command, such as `ASubCommand.class` you'll want:
 ```java
 public class ASubCommand {
-    @Command(permission = "feluxlib.sub", usage = "say", aliases = {"say"}, requiredArgs = 1)
-    public static void execute(final CommandSender sender, final FeluxPlugin plugin, final String[] args) {
+    @Command(permission = "cialib.sub", usage = "say", aliases = {"say"}, requiredArgs = 1)
+    public static void execute(final CommandSender sender, final CIAPlugin plugin, final String[] args) {
         String message = args[0];
         Bukkit.getServer().broadcastMessage(StringUtil.translate("&c[Broadcast] &7" + message));
     }
@@ -98,7 +98,7 @@ Our inventory system makes GUIs easy to create while allowing for being dynamic.
 ```java
         Inventory inventory = null;
         try {
-            inventory = new Inventory(InventoryType.HOPPER, "Felux | Main Panel", JavaPlugin.getPlugin(FeluxLibPlugin.class));
+            inventory = new Inventory(InventoryType.HOPPER, "CIA | Main Panel", JavaPlugin.getPlugin(CIALibPlugin.class));
             inventory.setItem(0, new ItemBuilder(Material.EMERALD.name()).withName("&a&lSome Button").withLore("&7I can only be shift clicked..", "&7Try me!").getItem(), (player, action) -> {
                 if (action == ClickType.SHIFT_LEFT) {
                     player.closeInventory();

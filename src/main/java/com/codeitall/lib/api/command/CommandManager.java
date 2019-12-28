@@ -103,6 +103,7 @@ public class CommandManager {
     public boolean handle(CommandSender sender, String command, String[] args) {
         if (command == null) {
             try {
+                if(!commandValidator.canExecute(sender, mainCommandMethod.getAnnotation(Command.class))) return true;
                 mainCommandMethod.invoke(null, sender, plugin, args);
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
