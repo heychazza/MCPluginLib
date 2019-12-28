@@ -1,5 +1,6 @@
 package com.codeitall.lib.api.command;
 
+import com.codeitall.lib.api.command.defaults.DefaultCommandValidator;
 import com.codeitall.lib.api.general.StringUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
@@ -19,9 +20,10 @@ public class CommandManager {
 
     private String mainCommand;
     private Method mainCommandMethod;
-    private Locale locale;
+    private static Locale locale;
+    private CommandValidator commandValidator;
 
-    public Locale getLocale() {
+    public static Locale getLocale() {
         return locale;
     }
 
@@ -33,10 +35,15 @@ public class CommandManager {
         return commands;
     }
 
+    public void setCommandValidator(CommandValidator commandValidator) {
+        this.commandValidator = commandValidator;
+    }
+
     public CommandManager(List<Class<?>> commandClasses, String command, JavaPlugin plugin) {
         this.plugin = plugin;
         this.mainCommand = command;
-        this.locale = new Locale();
+        locale = new Locale();
+        this.commandValidator = new DefaultCommandValidator();
 
         for (Class clazz : commandClasses) {
             for (Method method : clazz.getMethods()) {
@@ -108,10 +115,7 @@ public class CommandManager {
                 Method commandMethod = commands.get(command.toLowerCase());
                 Command commandAnnotation = commandMethod.getAnnotation(Command.class);
 
-                if (!sender.hasPermission(commandAnnotation.permission())) {
-                    sender.sendMessage(locale.getNoPermission());
-                    return true;
-                }
+                if(!commandValidator.canExecute(sender, commandAnnotation)) return true;
 
                 if (commandMethod.getParameters()[0].getType() == Player.class && !(sender instanceof Player)) {
                     sender.sendMessage(locale.getPlayerOnly());
