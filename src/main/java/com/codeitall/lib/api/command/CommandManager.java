@@ -1,6 +1,6 @@
-package io.felux.lib.api.command;
+package com.codeitall.lib.api.command;
 
-import io.felux.lib.api.general.StringUtil;
+import com.codeitall.lib.api.general.StringUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;

@@ -1,11 +1,11 @@
-package io.felux.lib.api.item;
+package com.codeitall.lib.api.item;
 
+import com.codeitall.lib.api.exception.InvalidEnchantException;
+import com.codeitall.lib.api.exception.InvalidFlagException;
+import com.codeitall.lib.api.exception.InvalidMaterialException;
+import com.codeitall.lib.api.general.StringUtil;
 import com.google.common.collect.Maps;
 import de.tr7zw.changeme.nbtapi.NBTItem;
-import io.felux.lib.api.exception.InvalidEnchantException;
-import io.felux.lib.api.exception.InvalidFlagException;
-import io.felux.lib.api.exception.InvalidMaterialException;
-import io.felux.lib.api.general.StringUtil;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;

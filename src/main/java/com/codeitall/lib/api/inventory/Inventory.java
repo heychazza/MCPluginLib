@@ -1,6 +1,6 @@
-package io.felux.lib.api.inventory;
+package com.codeitall.lib.api.inventory;
 
-import io.felux.lib.api.exception.InvalidInventoryException;
+import com.codeitall.lib.api.exception.InvalidInventoryException;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

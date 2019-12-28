@@ -1,4 +1,4 @@
-package io.felux.lib.api.general;
+package com.codeitall.lib.api.general;
 
 import org.bukkit.ChatColor;
 

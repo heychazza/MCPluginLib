@@ -1,11 +1,11 @@
-package io.felux.lib.plugin;
+package com.codeitall.lib.plugin;
 
-import io.felux.lib.api.command.CommandManager;
-import io.felux.lib.api.exception.InvalidMaterialException;
-import io.felux.lib.api.item.ItemBuilder;
-import io.felux.lib.api.item.ItemUtil;
-import io.felux.lib.plugin.command.ASubCommand;
-import io.felux.lib.plugin.command.YourMainCommand;
+import com.codeitall.lib.plugin.command.ASubCommand;
+import com.codeitall.lib.api.command.CommandManager;
+import com.codeitall.lib.api.exception.InvalidMaterialException;
+import com.codeitall.lib.api.item.ItemBuilder;
+import com.codeitall.lib.api.item.ItemUtil;
+import com.codeitall.lib.plugin.command.YourMainCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -20,17 +20,17 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
 
-public class FeluxLibPlugin extends JavaPlugin implements Listener {
+public class CIALibPlugin extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
 
         Bukkit.getPluginManager().registerEvents(this, this);
 
-        CommandManager commandManager = new CommandManager(Arrays.asList(ASubCommand.class), "feluxlib", this);
+        CommandManager commandManager = new CommandManager(Arrays.asList(ASubCommand.class), "codeitall", this);
         commandManager.setMainCommand(YourMainCommand.class);
         commandManager.getLocale().setNoPermission("&cYou cannot do that..");
-        commandManager.getLocale().setUnknownCommand("&7Unknown, try /feluxlib help.");
+        commandManager.getLocale().setUnknownCommand("&7Unknown, try /codeitall help.");
         commandManager.getLocale().setUsage("&7Please use &b{usage}&7.");
         commandManager.getLocale().setPlayerOnly("&cConsole isn't currently supported.");
 

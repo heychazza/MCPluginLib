@@ -1,4 +1,4 @@
-package io.felux.lib.api.exception;
+package com.codeitall.lib.api.exception;
 
 public class InvalidFlagException extends Exception {
     public InvalidFlagException(String errorMessage) {

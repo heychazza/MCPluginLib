@@ -1,6 +1,6 @@
-package io.felux.lib.api.serializer;
+package com.codeitall.lib.api.serializer;
 
-import io.felux.lib.api.exception.InvalidLocationException;
+import com.codeitall.lib.api.exception.InvalidLocationException;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;

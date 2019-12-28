@@ -1,4 +1,4 @@
-package io.felux.lib.api.item;
+package com.codeitall.lib.api.item;
 
 import java.util.Arrays;
 

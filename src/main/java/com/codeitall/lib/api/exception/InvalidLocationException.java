@@ -1,4 +1,4 @@
-package io.felux.lib.api.exception;
+package com.codeitall.lib.api.exception;
 
 public class InvalidLocationException extends Exception {
     public InvalidLocationException() {
