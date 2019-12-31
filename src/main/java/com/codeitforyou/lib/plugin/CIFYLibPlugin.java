@@ -1,10 +1,10 @@
 package com.codeitforyou.lib.plugin;
 
-import com.codeitforyou.lib.plugin.command.ASubCommand;
+import com.codeitforyou.lib.api.actions.ActionManager;
 import com.codeitforyou.lib.api.command.CommandManager;
-import com.codeitforyou.lib.api.exception.InvalidMaterialException;
 import com.codeitforyou.lib.api.item.ItemBuilder;
 import com.codeitforyou.lib.api.item.ItemUtil;
+import com.codeitforyou.lib.plugin.command.ASubCommand;
 import com.codeitforyou.lib.plugin.command.YourMainCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -19,48 +19,27 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
+import java.util.List;
 
 public class CIFYLibPlugin extends JavaPlugin implements Listener {
+    private ActionManager actionManager;
 
     @Override
     public void onEnable() {
-
         Bukkit.getPluginManager().registerEvents(this, this);
 
-        CommandManager commandManager = new CommandManager(Arrays.asList(ASubCommand.class), "codeitall", this);
+        CommandManager commandManager = new CommandManager(Arrays.asList(ASubCommand.class), "cifylib", this);
         commandManager.setMainCommand(YourMainCommand.class);
-        commandManager.getLocale().setNoPermission("&cYou cannot do that..");
-        commandManager.getLocale().setUnknownCommand("&7Unknown, try /codeitall help.");
-        commandManager.getLocale().setUsage("&7Please use &b{usage}&7.");
-        commandManager.getLocale().setPlayerOnly("&cConsole isn't currently supported.");
+        CommandManager.getLocale().setNoPermission("&cYou cannot do that..");
+        CommandManager.getLocale().setUnknownCommand("&7Unknown, try /codeitall help.");
+        CommandManager.getLocale().setUsage("&7Please use &b{usage}&7.");
+        CommandManager.getLocale().setPlayerOnly("&cConsole isn't currently supported.");
 
         // Example with referencing the configuration file.
-        commandManager.getLocale().setNoPermission(getConfig().getString("messages.permission", "&cNo permission to do that."));
-/*        try {
-            new ItemBuilder("DIRTS")
-                    .withName("&6Golden Dirt")
-                    .withLore("&7This dirt is well..", "&7MAGICAL!")
-                    .withItemFlag("HIDE_ENCHANTSS")
-                    .withEnchant("KNOCKBACKS", 1)
-                    .getItem();
+        CommandManager.getLocale().setNoPermission(getConfig().getString("messages.permission", "&cNo permission to do that."));
 
-        } catch (InvalidEnchantException | InvalidFlagException | InvalidMaterialException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            LocationSerializer.fromString("1;2;3;4");
-        } catch (InvalidLocationException e) {
-            e.printStackTrace();
-        }*/
-
-        try {
-            new ItemBuilder("DIRT").withNBTString("some-key", "value");
-        } catch (InvalidMaterialException e) {
-            e.printStackTrace();
-        }
-
-
+        actionManager = new ActionManager();
+        actionManager.addDefaults();
     }
 
     @EventHandler
@@ -73,15 +52,20 @@ public class CIFYLibPlugin extends JavaPlugin implements Listener {
                 .withFlag(ItemFlag.HIDE_ENCHANTS)
                 .withData(0)
                 .withNBTString("sword-type", "strong");
+
+        // Add our custom item to the players inventory.
         player.getInventory().addItem(itemBuilder.getItem());
     }
 
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
+        Player player = e.getPlayer();
         ItemStack item = e.getItem();
         String swordType = ItemUtil.getNBTString(item, "sword-type");
 
-        if (swordType != null)
-            e.getPlayer().sendMessage("You have a " + swordType + " sword.");
+        if (swordType != null) {
+            List<String> someActions = Arrays.asList("[console] tell %player% You clicked a " + swordType + " sword!", "[chat] I love my new sword! :o");
+            actionManager.runActions(player, someActions);
+        }
     }
 }

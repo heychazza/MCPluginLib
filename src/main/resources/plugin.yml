@@ -1,9 +1,9 @@
 name: ${plugin}
 version: ${project.version}
 main: ${package}
-author: Chazza
-website: https://felux.io/
+author: CodeItForYou
+website: https://codeitforyou.com/
 
 commands:
-  feluxlib:
+  cifylib:
     description: "View the GUI."
