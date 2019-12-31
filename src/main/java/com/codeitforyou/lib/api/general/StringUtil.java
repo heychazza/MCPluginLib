@@ -1,4 +1,4 @@
-package com.codeitall.lib.api.general;
+package com.codeitforyou.lib.api.general;
 
 import org.bukkit.ChatColor;
 

@@ -1,8 +1,8 @@
-package com.codeitall.lib.api.command.defaults;
+package com.codeitforyou.lib.api.command.defaults;
 
-import com.codeitall.lib.api.command.Command;
-import com.codeitall.lib.api.command.CommandManager;
-import com.codeitall.lib.api.command.CommandValidator;
+import com.codeitforyou.lib.api.command.Command;
+import com.codeitforyou.lib.api.command.CommandManager;
+import com.codeitforyou.lib.api.command.CommandValidator;
 import org.bukkit.command.CommandSender;
 
 public class DefaultCommandValidator implements CommandValidator {

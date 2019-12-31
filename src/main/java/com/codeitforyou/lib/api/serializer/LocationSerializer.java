@@ -1,6 +1,6 @@
-package com.codeitall.lib.api.serializer;
+package com.codeitforyou.lib.api.serializer;
 
-import com.codeitall.lib.api.exception.InvalidLocationException;
+import com.codeitforyou.lib.api.exception.InvalidLocationException;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;

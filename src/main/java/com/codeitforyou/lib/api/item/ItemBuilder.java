@@ -1,9 +1,9 @@
-package com.codeitall.lib.api.item;
+package com.codeitforyou.lib.api.item;
 
-import com.codeitall.lib.api.exception.InvalidEnchantException;
-import com.codeitall.lib.api.exception.InvalidFlagException;
-import com.codeitall.lib.api.exception.InvalidMaterialException;
-import com.codeitall.lib.api.general.StringUtil;
+import com.codeitforyou.lib.api.exception.InvalidEnchantException;
+import com.codeitforyou.lib.api.exception.InvalidFlagException;
+import com.codeitforyou.lib.api.exception.InvalidMaterialException;
+import com.codeitforyou.lib.api.general.StringUtil;
 import com.google.common.collect.Maps;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import org.bukkit.Material;

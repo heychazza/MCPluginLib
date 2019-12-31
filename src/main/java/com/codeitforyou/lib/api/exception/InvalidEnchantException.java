@@ -1,4 +1,4 @@
-package com.codeitall.lib.api.exception;
+package com.codeitforyou.lib.api.exception;
 
 public class InvalidEnchantException extends Exception {
     public InvalidEnchantException(String errorMessage) {

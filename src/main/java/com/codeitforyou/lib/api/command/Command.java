@@ -1,4 +1,4 @@
-package com.codeitall.lib.api.command;
+package com.codeitforyou.lib.api.command;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

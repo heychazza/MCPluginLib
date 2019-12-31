@@ -1,7 +1,7 @@
-package com.codeitall.lib.api.command;
+package com.codeitforyou.lib.api.command;
 
-import com.codeitall.lib.api.command.defaults.DefaultCommandValidator;
-import com.codeitall.lib.api.general.StringUtil;
+import com.codeitforyou.lib.api.command.defaults.DefaultCommandValidator;
+import com.codeitforyou.lib.api.general.StringUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
@@ -103,7 +103,7 @@ public class CommandManager {
     public boolean handle(CommandSender sender, String command, String[] args) {
         if (command == null) {
             try {
-                if(!commandValidator.canExecute(sender, mainCommandMethod.getAnnotation(Command.class))) return true;
+                if (!commandValidator.canExecute(sender, mainCommandMethod.getAnnotation(Command.class))) return true;
                 mainCommandMethod.invoke(null, sender, plugin, args);
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
@@ -116,7 +116,7 @@ public class CommandManager {
                 Method commandMethod = commands.get(command.toLowerCase());
                 Command commandAnnotation = commandMethod.getAnnotation(Command.class);
 
-                if(!commandValidator.canExecute(sender, commandAnnotation)) return true;
+                if (!commandValidator.canExecute(sender, commandAnnotation)) return true;
 
                 if (commandMethod.getParameters()[0].getType() == Player.class && !(sender instanceof Player)) {
                     sender.sendMessage(locale.getPlayerOnly());
@@ -143,10 +143,10 @@ public class CommandManager {
         private String unknownCommand = "&cFailed to find that sub-command.";
         private String noPermission = "&cYou lack the permission to use this.";
         private String playerOnly = "&cThis command can only be executed in-game.";
-        private String usage = "&7Usage: &f/{usage}&7.";
+        private String usage = "&7Usage: &f{usage}&7.";
 
         public String getUnknownCommand() {
-            return unknownCommand;
+            return StringUtil.translate(unknownCommand);
         }
 
         public void setUnknownCommand(String message) {
@@ -154,7 +154,7 @@ public class CommandManager {
         }
 
         public String getNoPermission() {
-            return noPermission;
+            return StringUtil.translate(noPermission);
         }
 
         public void setNoPermission(String message) {
@@ -162,7 +162,7 @@ public class CommandManager {
         }
 
         public String getPlayerOnly() {
-            return playerOnly;
+            return StringUtil.translate(playerOnly);
         }
 
         public void setPlayerOnly(String message) {
@@ -170,7 +170,7 @@ public class CommandManager {
         }
 
         public String getUsage(String command) {
-            return usage.replace("{usage}", command);
+            return StringUtil.translate(usage.replace("{usage}", command));
         }
 
         public void setUsage(String message) {

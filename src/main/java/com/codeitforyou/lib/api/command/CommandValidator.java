@@ -1,4 +1,4 @@
-package com.codeitall.lib.api.command;
+package com.codeitforyou.lib.api.command;
 
 import org.bukkit.command.CommandSender;
 

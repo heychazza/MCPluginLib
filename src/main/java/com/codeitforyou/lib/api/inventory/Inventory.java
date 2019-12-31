@@ -1,6 +1,6 @@
-package com.codeitall.lib.api.inventory;
+package com.codeitforyou.lib.api.inventory;
 
-import com.codeitall.lib.api.exception.InvalidInventoryException;
+import com.codeitforyou.lib.api.exception.InvalidInventoryException;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

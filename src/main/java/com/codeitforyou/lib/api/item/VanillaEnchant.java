@@ -1,4 +1,4 @@
-package com.codeitall.lib.api.item;
+package com.codeitforyou.lib.api.item;
 
 import java.util.Arrays;
 

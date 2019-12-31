@@ -1,11 +1,11 @@
-package com.codeitall.lib.plugin;
+package com.codeitforyou.lib.plugin;
 
-import com.codeitall.lib.plugin.command.ASubCommand;
-import com.codeitall.lib.api.command.CommandManager;
-import com.codeitall.lib.api.exception.InvalidMaterialException;
-import com.codeitall.lib.api.item.ItemBuilder;
-import com.codeitall.lib.api.item.ItemUtil;
-import com.codeitall.lib.plugin.command.YourMainCommand;
+import com.codeitforyou.lib.plugin.command.ASubCommand;
+import com.codeitforyou.lib.api.command.CommandManager;
+import com.codeitforyou.lib.api.exception.InvalidMaterialException;
+import com.codeitforyou.lib.api.item.ItemBuilder;
+import com.codeitforyou.lib.api.item.ItemUtil;
+import com.codeitforyou.lib.plugin.command.YourMainCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -20,7 +20,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
 
-public class CIALibPlugin extends JavaPlugin implements Listener {
+public class CIFYLibPlugin extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
