@@ -86,12 +86,14 @@
 
     <dependencies>
 
+        <!-- NBT API -->
         <dependency>
             <groupId>com.github.Chazza</groupId>
             <artifactId>Item-NBT-API</artifactId>
             <version>a50153e38e</version>
         </dependency>
 
+        <!-- Spigot API -->
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
@@ -99,75 +101,20 @@
             <scope>provided</scope>
         </dependency>
 
-        <!--        <dependency>-->
-        <!--            <groupId>org.spigotmc</groupId>-->
-        <!--            <artifactId>spigot</artifactId>-->
-        <!--            <version>1.8-R0.1-SNAPSHOT</version>-->
-        <!--            <scope>provided</scope>-->
-        <!--        </dependency>-->
+        <!-- PlaceholderAPI -->
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>2.10.1</version>
+            <scope>provided</scope>
+        </dependency>
 
-        <!--        <dependency>-->
-        <!--            <groupId>org.spigotmc</groupId>-->
-        <!--            <artifactId>spigot</artifactId>-->
-        <!--            <version>1.9-R0.1-SNAPSHOT</version>-->
-        <!--            <scope>provided</scope>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>org.spigotmc</groupId>-->
-        <!--            <artifactId>spigot</artifactId>-->
-        <!--            <version>1.10-R0.1-SNAPSHOT</version>-->
-        <!--            <scope>provided</scope>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>org.spigotmc</groupId>-->
-        <!--            <artifactId>spigot</artifactId>-->
-        <!--            <version>1.11-R0.1-SNAPSHOT</version>-->
-        <!--            <scope>provided</scope>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>org.spigotmc</groupId>-->
-        <!--            <artifactId>spigot</artifactId>-->
-        <!--            <version>1.12-R0.1-SNAPSHOT</version>-->
-        <!--            <scope>provided</scope>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>org.spigotmc</groupId>-->
-        <!--            <artifactId>spigot</artifactId>-->
-        <!--            <version>1.13.1-R0.1-SNAPSHOT</version>-->
-        <!--            <scope>provided</scope>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>org.spigotmc</groupId>-->
-        <!--            <artifactId>spigot</artifactId>-->
-        <!--            <version>1.14.4-R0.1-SNAPSHOT</version>-->
-        <!--            <scope>provided</scope>-->
-        <!--        </dependency>-->
-
-        <!--        <dependency>-->
-        <!--            <groupId>org.spigotmc</groupId>-->
-        <!--            <artifactId>spigot</artifactId>-->
-        <!--            <version>1.15-R0.1-SNAPSHOT</version>-->
-        <!--            <scope>provided</scope>-->
-        <!--        </dependency>-->
-
+        <!-- Bungeecord API -->
         <dependency>
             <groupId>net.md-5</groupId>
             <artifactId>bungeecord-api</artifactId>
             <version>1.14-SNAPSHOT</version>
             <type>jar</type>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>net.md-5</groupId>
-            <artifactId>bungeecord-api</artifactId>
-            <version>1.14-SNAPSHOT</version>
-            <type>javadoc</type>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -184,11 +131,6 @@
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>
-        <repository>
-            <id>mojang</id>
-            <name>Mojang's Repository</name>
-            <url>https://libraries.minecraft.net/</url>
         </repository>
         <repository>
             <id>placeholderapi</id>
