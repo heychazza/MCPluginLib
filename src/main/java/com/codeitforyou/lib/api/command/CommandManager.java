@@ -28,7 +28,7 @@ public class CommandManager {
     }
 
     public void setLocale(Locale locale) {
-        this.locale = locale;
+        CommandManager.locale = locale;
     }
 
     public Map<String, Method> getCommands() {
@@ -102,8 +102,15 @@ public class CommandManager {
 
     public boolean handle(CommandSender sender, String command, String[] args) {
         if (command == null) {
+            Command commandAnnotation = mainCommandMethod.getAnnotation(Command.class);
             try {
-                if (!commandValidator.canExecute(sender, mainCommandMethod.getAnnotation(Command.class))) return true;
+                if (!commandValidator.canExecute(sender, commandAnnotation)) return true;
+
+                if (mainCommandMethod.getParameters()[0].getType() == Player.class && !(sender instanceof Player)) {
+                    sender.sendMessage(locale.getPlayerOnly());
+                    return true;
+                }
+
                 mainCommandMethod.invoke(null, sender, plugin, args);
             } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();

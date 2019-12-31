@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 
 public class DefaultCommandValidator implements CommandValidator {
     public boolean canExecute(CommandSender sender, Command command) {
-        if (!sender.hasPermission(command.permission())) {
+        if (!command.permission().isEmpty() && !sender.hasPermission(command.permission())) {
             sender.sendMessage(CommandManager.getLocale().getNoPermission());
             return false;
         }
