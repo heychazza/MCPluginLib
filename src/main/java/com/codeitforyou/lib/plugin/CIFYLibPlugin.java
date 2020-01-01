@@ -40,6 +40,7 @@ public class CIFYLibPlugin extends JavaPlugin implements Listener {
 
         actionManager = new ActionManager();
         actionManager.addDefaults();
+        actionManager.addAction("console", (player, data) -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), data));
     }
 
     @EventHandler
