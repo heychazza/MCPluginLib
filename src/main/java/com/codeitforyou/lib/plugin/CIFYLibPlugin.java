@@ -2,6 +2,7 @@ package com.codeitforyou.lib.plugin;
 
 import com.codeitforyou.lib.api.actions.ActionManager;
 import com.codeitforyou.lib.api.command.CommandManager;
+import com.codeitforyou.lib.api.general.PAPIUtil;
 import com.codeitforyou.lib.api.item.ItemBuilder;
 import com.codeitforyou.lib.api.item.ItemUtil;
 import com.codeitforyou.lib.plugin.command.ASubCommand;
@@ -68,5 +69,7 @@ public class CIFYLibPlugin extends JavaPlugin implements Listener {
             List<String> someActions = Arrays.asList("[console] tell %player% You clicked a " + swordType + " sword!", "[chat] I love my new sword! :o");
             actionManager.runActions(player, someActions);
         }
+
+
     }
 }
