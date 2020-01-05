@@ -51,7 +51,7 @@ public class ActionManager {
         String actionPrefix = singleAction ? item : item.split(" ", 2)[0].toUpperCase();
         String rawAction = StringUtils.substringBetween(actionPrefix, "[", "]");
 
-        if (actions.containsKey(rawAction)) return actions.get(rawAction);
+        if (rawAction != null && actions.containsKey(rawAction)) return actions.get(rawAction);
         return null;
     }
 }

@@ -66,7 +66,7 @@ public class CIFYLibPlugin extends JavaPlugin implements Listener {
         String swordType = ItemUtil.getNBTString(item, "sword-type");
 
         if (swordType != null) {
-            List<String> someActions = Arrays.asList("[console] tell %player% You clicked a " + swordType + " sword!", "[chat] I love my new sword! :o");
+            List<String> someActions = Arrays.asList("[console] tell %player% You clicked a " + swordType + " sword!", "[chat] I love my new sword! :o", "say lets test!");
             actionManager.runActions(player, someActions);
         }
 
