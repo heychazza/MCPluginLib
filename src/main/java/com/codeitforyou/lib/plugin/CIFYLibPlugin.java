@@ -39,7 +39,7 @@ public class CIFYLibPlugin extends JavaPlugin implements Listener {
         // Example with referencing the configuration file.
         CommandManager.getLocale().setNoPermission(getConfig().getString("messages.permission", "&cNo permission to do that."));
 
-        actionManager = new ActionManager();
+        actionManager = new ActionManager(this);
         actionManager.addDefaults();
         actionManager.addAction("console", (player, data) -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), data));
     }

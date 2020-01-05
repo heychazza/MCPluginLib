@@ -6,13 +6,15 @@ import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
 public class ActionManager {
-    private Map<String, Action> actions = Maps.newConcurrentMap();
+    private final Map<String, Action> actions;
 
     public void addAction(final String id, final Action action) {
         actions.put(id.toUpperCase(), action);
@@ -20,6 +22,13 @@ public class ActionManager {
 
     public Map<String, Action> getActions() {
         return actions;
+    }
+
+    private final JavaPlugin plugin;
+
+    public ActionManager(JavaPlugin plugin) {
+        this.plugin = plugin;
+        actions = Maps.newConcurrentMap();
     }
 
     public void addDefaults() {
@@ -36,8 +45,14 @@ public class ActionManager {
             String actionData = !item.contains(" ") ? "" : StringUtil.translate(item.split(" ", 2)[1]).replace("%player%", player.getName());
 
             Action action = getAction(item);
-            if (action != null) action.run(player, actionData);
-            else Bukkit.dispatchCommand(Bukkit.getConsoleSender(), actionData);
+
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    if (action != null) action.run(player, actionData);
+                    else Bukkit.dispatchCommand(Bukkit.getConsoleSender(), item);
+                }
+            }.runTask(plugin);
         });
     }
 
