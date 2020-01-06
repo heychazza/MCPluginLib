@@ -9,9 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CommandManager {
 
@@ -23,21 +21,8 @@ public class CommandManager {
     private static Locale locale;
     private CommandValidator commandValidator;
 
-    public static Locale getLocale() {
-        return locale;
-    }
+    private boolean mainCommandArgs = false;
 
-    public void setLocale(Locale locale) {
-        CommandManager.locale = locale;
-    }
-
-    public Map<String, Method> getCommands() {
-        return commands;
-    }
-
-    public void setCommandValidator(CommandValidator commandValidator) {
-        this.commandValidator = commandValidator;
-    }
 
     public CommandManager(List<Class<?>> commandClasses, String command, JavaPlugin plugin) {
         this.plugin = plugin;
@@ -79,6 +64,31 @@ public class CommandManager {
             throw new RuntimeException("/" + command + " command is being handled by plugin other than " + plugin.getDescription().getName() + ". You must use /" + plugin.getName().toLowerCase() + ":" + command + " instead.");
         }
     }
+
+    public static Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        CommandManager.locale = locale;
+    }
+
+    public Map<String, Method> getCommands() {
+        return commands;
+    }
+
+    public void setCommandValidator(CommandValidator commandValidator) {
+        this.commandValidator = commandValidator;
+    }
+
+    public boolean useMainCommandForArgs() {
+        return mainCommandArgs;
+    }
+
+    public void setMainCommandArgs(final boolean mainCommandArgs) {
+        this.mainCommandArgs = mainCommandArgs;
+    }
+
 
     public void setMainCommand(Class<?> command) {
         for (Method method : command.getMethods()) {
@@ -140,6 +150,26 @@ public class CommandManager {
                 e.printStackTrace();
             }
         } else {
+            if (useMainCommandForArgs()) {
+                Command commandAnnotation = mainCommandMethod.getAnnotation(Command.class);
+                try {
+                    if (!commandValidator.canExecute(sender, commandAnnotation)) return true;
+
+                    if (mainCommandMethod.getParameters()[0].getType() == Player.class && !(sender instanceof Player)) {
+                        sender.sendMessage(locale.getPlayerOnly());
+                        return true;
+                    }
+
+                    List<String> cmdArgs = new ArrayList<>();
+                    cmdArgs.add(command);
+                    Collections.addAll(cmdArgs, args);
+
+                    mainCommandMethod.invoke(null, sender, plugin, cmdArgs.toArray(new String[0]));
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+                return true;
+            }
             sender.sendMessage(getLocale().getUnknownCommand());
         }
 
