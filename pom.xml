@@ -121,6 +121,10 @@
 
     <repositories>
         <repository>
+            <id>placeholderapi</id>
+            <url>http://repo.extendedclip.com/content/repositories/public/</url>
+        </repository>
+        <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
@@ -131,10 +135,6 @@
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>
-        <repository>
-            <id>placeholderapi</id>
-            <url>http://repo.extendedclip.com/content/repositories/public/</url>
         </repository>
         <repository>
             <id>bungeecord-repo</id>
