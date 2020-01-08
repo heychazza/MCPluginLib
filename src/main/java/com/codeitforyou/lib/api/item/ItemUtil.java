@@ -3,7 +3,7 @@ package com.codeitforyou.lib.api.item;
 import com.codeitforyou.lib.api.exception.InvalidEnchantException;
 import com.codeitforyou.lib.api.exception.InvalidFlagException;
 import com.codeitforyou.lib.api.exception.InvalidMaterialException;
-import de.tr7zw.changeme.nbtapi.NBTItem;
+import com.codeitforyou.lib.api.nbt.NBT;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -54,7 +54,7 @@ public class ItemUtil {
     }
 
     public static String getNBTString(ItemStack item, String key) {
-        NBTItem nbtItem = new NBTItem(item);
+        NBT nbtItem = NBT.get(item);
         if (nbtItem.hasNBTData() && nbtItem.hasKey(key)) return nbtItem.getString(key);
         return null;
     }
