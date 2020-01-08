@@ -7,3 +7,4 @@ website: https://codeitforyou.com/
 commands:
   cifylib:
     description: "View the GUI."
+    aliases: ["lib"]
