@@ -24,6 +24,7 @@ import java.util.List;
 public class CIFYLibPlugin extends JavaPlugin implements Listener {
     private ActionManager actionManager;
 
+    // Test trigger for Discord notifying.
     @Override
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(this, this);
