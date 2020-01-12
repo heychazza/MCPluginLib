@@ -65,7 +65,7 @@ public class CommandManager {
         }
     }
 
-    public static Locale getLocale() {
+    public Locale getLocale() {
         return locale;
     }
 
@@ -114,7 +114,7 @@ public class CommandManager {
         if (command == null) {
             Command commandAnnotation = mainCommandMethod.getAnnotation(Command.class);
             try {
-                if (!commandValidator.canExecute(sender, commandAnnotation)) return true;
+                if (!commandValidator.canExecute(sender, commandAnnotation, this)) return true;
 
                 if (mainCommandMethod.getParameters()[0].getType() == Player.class && !(sender instanceof Player)) {
                     sender.sendMessage(locale.getPlayerOnly());
@@ -133,7 +133,7 @@ public class CommandManager {
                 Method commandMethod = commands.get(command.toLowerCase());
                 Command commandAnnotation = commandMethod.getAnnotation(Command.class);
 
-                if (!commandValidator.canExecute(sender, commandAnnotation)) return true;
+                if (!commandValidator.canExecute(sender, commandAnnotation, this)) return true;
 
                 if (commandMethod.getParameters()[0].getType() == Player.class && !(sender instanceof Player)) {
                     sender.sendMessage(locale.getPlayerOnly());
@@ -153,7 +153,7 @@ public class CommandManager {
             if (useMainCommandForArgs()) {
                 Command commandAnnotation = mainCommandMethod.getAnnotation(Command.class);
                 try {
-                    if (!commandValidator.canExecute(sender, commandAnnotation)) return true;
+                    if (!commandValidator.canExecute(sender, commandAnnotation, this)) return true;
 
                     if (mainCommandMethod.getParameters()[0].getType() == Player.class && !(sender instanceof Player)) {
                         sender.sendMessage(locale.getPlayerOnly());

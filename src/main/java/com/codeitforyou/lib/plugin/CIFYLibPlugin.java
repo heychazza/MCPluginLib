@@ -2,10 +2,12 @@ package com.codeitforyou.lib.plugin;
 
 import com.codeitforyou.lib.api.actions.ActionManager;
 import com.codeitforyou.lib.api.command.CommandManager;
+import com.codeitforyou.lib.api.general.StringUtil;
 import com.codeitforyou.lib.api.item.ItemBuilder;
 import com.codeitforyou.lib.api.item.ItemUtil;
 import com.codeitforyou.lib.plugin.command.ASubCommand;
 import com.codeitforyou.lib.plugin.command.YourMainCommand;
+import com.google.common.collect.Maps;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -20,6 +22,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class CIFYLibPlugin extends JavaPlugin implements Listener {
     private ActionManager actionManager;
@@ -31,18 +35,20 @@ public class CIFYLibPlugin extends JavaPlugin implements Listener {
 
         CommandManager commandManager = new CommandManager(Arrays.asList(ASubCommand.class), "cifylib", this);
         commandManager.setMainCommand(YourMainCommand.class);
-        CommandManager.getLocale().setNoPermission("&cYou cannot do that..");
-        CommandManager.getLocale().setUnknownCommand("&7Unknown, try /codeitall help.");
-        CommandManager.getLocale().setUsage("&7Please use &b{usage}&7.");
-        CommandManager.getLocale().setPlayerOnly("&cConsole isn't currently supported.");
+        commandManager.getLocale().setNoPermission("&cYou cannot do that..");
+        commandManager.getLocale().setUnknownCommand("&7Unknown, try /codeitall help.");
+        commandManager.getLocale().setUsage("&7Please use &b{usage}&7.");
+        commandManager.getLocale().setPlayerOnly("&cConsole isn't currently supported.");
 
         // Example with referencing the configuration file.
-        CommandManager.getLocale().setNoPermission(getConfig().getString("messages.permission", "&cNo permission to do that."));
+        commandManager.getLocale().setNoPermission(getConfig().getString("messages.permission", "&cNo permission to do that."));
 
         actionManager = new ActionManager(this);
         actionManager.addDefaults();
-        actionManager.addAction("console", (player, data) -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), data));
+        actionManager.addAction("color", (player, data) -> colors.put(player.getUniqueId(), data));
     }
+
+    private Map<UUID, String> colors = Maps.newConcurrentMap();
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
@@ -66,8 +72,10 @@ public class CIFYLibPlugin extends JavaPlugin implements Listener {
         String swordType = ItemUtil.getNBTString(item, "sword-type");
 
         if (swordType != null) {
-            List<String> someActions = Arrays.asList("[console] tell %player% You clicked a " + swordType + " sword!", "[chat] I love my new sword! :o", "say lets test!");
+            List<String> someActions = Arrays.asList("[console] tell %player% You clicked a " + swordType + " sword!", "[chat] I love my new sword! :o", "say lets test!",
+                    "[COLOR] RED");
             actionManager.runActions(player, someActions);
+            player.sendMessage(StringUtil.translate("&7Your current color is: &f" + colors.getOrDefault(player.getUniqueId(), null)));
         }
     }
 }
