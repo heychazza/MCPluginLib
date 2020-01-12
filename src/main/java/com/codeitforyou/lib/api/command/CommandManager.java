@@ -141,7 +141,7 @@ public class CommandManager {
                 }
 
                 if (commandAnnotation.requiredArgs() > args.length) {
-                    sender.sendMessage(locale.getUsage("/" + mainCommand + " " + commandAnnotation.usage()));
+                    sender.sendMessage(locale.getUsage(commandAnnotation.aliases()[0], commandAnnotation.usage()));
                     return true;
                 }
 
@@ -180,7 +180,7 @@ public class CommandManager {
         private String unknownCommand = "&cFailed to find that sub-command.";
         private String noPermission = "&cYou lack the permission to use this.";
         private String playerOnly = "&cThis command can only be executed in-game.";
-        private String usage = "&7Usage: &f{usage}&7.";
+        private String usage = "&7Usage: &f/{command} {subcommand} &7{usage}&7.";
 
         public String getUnknownCommand() {
             return StringUtil.translate(unknownCommand);
@@ -206,8 +206,12 @@ public class CommandManager {
             this.playerOnly = StringUtil.translate(message);
         }
 
-        public String getUsage(String command) {
-            return StringUtil.translate(usage.replace("{usage}", command));
+        public String getUsage(String subCommand, String cmdUsage) {
+            usage = usage.replace("{command}", mainCommand);
+            usage = usage.replace("{subcommand}", subCommand);
+            usage = usage.replace("{usage}", cmdUsage);
+
+            return StringUtil.translate(usage);
         }
 
         public void setUsage(String message) {
