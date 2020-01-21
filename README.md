@@ -21,4 +21,4 @@ Once you've done this, you'll need to add the dependency like such.
     <version>35a95e766e</version>
 </dependency>
    ```
-Click [here](https://docs.codeitforyou.com/apis/lib/) to view our wiki for utilising our API.
+Click [here](https://docs.codeitforyou.com/apis/lib/) to view our wiki page for utilising our API.
