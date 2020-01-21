@@ -20,5 +20,5 @@ Once you've done this, you'll need to add the dependency.
     <artifactId>Lib</artifactId>
     <version>35a95e766e</version>
 </dependency>
-   ```
+```
 Click [here](https://docs.codeitforyou.com/apis/lib/) to view our wiki for utilising our API.
