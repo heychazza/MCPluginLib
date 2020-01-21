@@ -1,4 +1,4 @@
-# CIFY
+# CIFYLib
 This is a lightweight and easy to use library for fast plugin creation. I created this merely as a base for all my plugins, without the need to manually copy classes many times throughout each project.
 
 ## Features
