@@ -13,7 +13,7 @@ You'll need to add the Jitpack repository if you already haven't.
 </repository>
 ```
 
-Once you've done this, you'll need to add the dependency.
+Once you've done this, you'll need to add the dependency like such.
    ```xml
 <dependency>
     <groupId>com.codeitforyou.git.Official</groupId>
