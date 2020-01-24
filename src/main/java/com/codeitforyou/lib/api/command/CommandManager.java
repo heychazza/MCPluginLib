@@ -207,11 +207,11 @@ public class CommandManager {
         }
 
         public String getUsage(String subCommand, String cmdUsage) {
-            usage = usage.replace("{command}", mainCommand);
-            usage = usage.replace("{subcommand}", subCommand);
-            usage = usage.replace("{usage}", cmdUsage);
+            String usageStr = usage.replace("{command}", mainCommand)
+                    .replace("{subcommand}", subCommand)
+                    .replace("{usage}", cmdUsage);
 
-            return StringUtil.translate(usage);
+            return StringUtil.translate(usageStr);
         }
 
         public void setUsage(String message) {
