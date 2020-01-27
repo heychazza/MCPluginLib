@@ -31,46 +31,26 @@ public class CommandManager {
     private boolean mainCommandArgs = false;
 
     private void registerCommand(List<String> aliases) {
-        PluginCommand command = getCommand(aliases.get(0), plugin);
-
+        PluginCommand command = plugin.getCommand(aliases.get(0));
         command.setAliases(aliases);
-        getCommandMap().register(plugin.getDescription().getName(), command);
-    }
-
-    private PluginCommand getCommand(String name, Plugin plugin) {
-        PluginCommand command = null;
 
         try {
-            Constructor<PluginCommand> c = PluginCommand.class.getDeclaredConstructor(String.class, Plugin.class);
-            c.setAccessible(true);
+            final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
 
-            command = c.newInstance(name, plugin);
-        } catch (SecurityException | IllegalArgumentException | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
-            e.printStackTrace();
+            bukkitCommandMap.setAccessible(true);
+            CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
+
+            commandMap.register("seen", command);
+        } catch(Exception e) {
+            plugin.getLogger().warning("Failed to register command. Reason: " + e.getLocalizedMessage());
         }
 
-        return command;
-    }
-
-    private CommandMap getCommandMap() {
-        CommandMap commandMap = null;
-
-        try {
-            if (Bukkit.getPluginManager() instanceof SimplePluginManager) {
-                Field f = SimplePluginManager.class.getDeclaredField("commandMap");
-                f.setAccessible(true);
-
-                commandMap = (CommandMap) f.get(Bukkit.getPluginManager());
-            }
-        } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException | SecurityException e) {
-            e.printStackTrace();
-        }
-        return commandMap;
     }
 
     public CommandManager(List<Class<?>> commandClasses, String command, JavaPlugin plugin) {
         this.plugin = plugin;
         this.mainCommand = command;
+
         this.aliases = Collections.singletonList(command);
         locale = new Locale();
         this.commandValidator = new DefaultCommandValidator();
