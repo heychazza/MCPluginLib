@@ -100,6 +100,7 @@ public class CommandManager {
         }
 
         PluginCommand pluginCommand = plugin.getCommand(command);
+        addAlias(mainCommand);
         pluginCommand.setExecutor(new CommandExecutor(this, plugin));
     }
 
