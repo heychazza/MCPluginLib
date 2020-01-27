@@ -7,8 +7,10 @@ import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -27,28 +29,45 @@ public class CommandManager {
 
     private boolean mainCommandArgs = false;
 
-    private void registerCommand(List<String> aliases) {
-        PluginCommand command = plugin.getCommand(aliases.get(0));
-        command.setAliases(aliases);
-
+    public PluginCommand createCommand() {
         try {
-            final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
+            Constructor<PluginCommand> c = PluginCommand.class.getDeclaredConstructor(String.class, Plugin.class);
+            c.setAccessible(true);
 
-            bukkitCommandMap.setAccessible(true);
-            CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
+            PluginCommand cmd = c.newInstance(mainCommand, plugin);
+            cmd.setDescription("Manage players' shops or this plugin.");
+            cmd.setUsage("/" + mainCommand);
+            cmd.setAliases(getAliases());
+            cmd.setExecutor(new CommandExecutor(this, plugin));
+//            cmd.setTabCompleter(new ShopBaseTabCompleter());
 
-            commandMap.register(aliases.get(0), command);
-        } catch (Exception e) {
-            plugin.getLogger().warning("Failed to register command. Reason: " + e.getLocalizedMessage());
+            return cmd;
+        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
+            plugin.getLogger().severe("Failed to create command");
         }
 
+        return null;
+    }
+
+    public void register() {
+        try {
+            Field f = Bukkit.getPluginManager().getClass().getDeclaredField("commandMap");
+            f.setAccessible(true);
+
+            Object commandMapObject = f.get(Bukkit.getPluginManager());
+            if (commandMapObject instanceof CommandMap) {
+                CommandMap commandMap = (CommandMap) commandMapObject;
+                commandMap.register(plugin.getName(), createCommand());
+            }
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            plugin.getLogger().severe("Failed to register command");
+        }
     }
 
     public CommandManager(List<Class<?>> commandClasses, String command, JavaPlugin plugin) {
         this.plugin = plugin;
         this.mainCommand = command;
-
-        this.aliases = Collections.singletonList(command);
+        this.aliases = new ArrayList<>();
         locale = new Locale();
         this.commandValidator = new DefaultCommandValidator();
 
@@ -76,13 +95,7 @@ public class CommandManager {
             }
         }
 
-        PluginCommand pluginCommand = plugin.getCommand(command);
         addAlias(mainCommand);
-        pluginCommand.setExecutor(new CommandExecutor(this, plugin));
-    }
-
-    public void register() {
-        registerCommand(getAliases());
     }
 
     public List<String> getAliases() {
