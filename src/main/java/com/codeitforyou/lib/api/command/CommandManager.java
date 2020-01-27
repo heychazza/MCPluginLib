@@ -2,11 +2,17 @@ package com.codeitforyou.lib.api.command;
 
 import com.codeitforyou.lib.api.command.defaults.DefaultCommandValidator;
 import com.codeitforyou.lib.api.general.StringUtil;
+import org.bukkit.Bukkit;
+import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.SimplePluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -17,16 +23,55 @@ public class CommandManager {
     private Map<String, Method> commands = new HashMap<>();
 
     private String mainCommand;
+    private List<String> aliases;
     private Method mainCommandMethod;
     private static Locale locale;
     private CommandValidator commandValidator;
 
     private boolean mainCommandArgs = false;
 
+    private void registerCommand(List<String> aliases) {
+        PluginCommand command = getCommand(aliases.get(0), plugin);
+
+        command.setAliases(aliases);
+        getCommandMap().register(plugin.getDescription().getName(), command);
+    }
+
+    private PluginCommand getCommand(String name, Plugin plugin) {
+        PluginCommand command = null;
+
+        try {
+            Constructor<PluginCommand> c = PluginCommand.class.getDeclaredConstructor(String.class, Plugin.class);
+            c.setAccessible(true);
+
+            command = c.newInstance(name, plugin);
+        } catch (SecurityException | IllegalArgumentException | IllegalAccessException | InstantiationException | InvocationTargetException | NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+
+        return command;
+    }
+
+    private CommandMap getCommandMap() {
+        CommandMap commandMap = null;
+
+        try {
+            if (Bukkit.getPluginManager() instanceof SimplePluginManager) {
+                Field f = SimplePluginManager.class.getDeclaredField("commandMap");
+                f.setAccessible(true);
+
+                commandMap = (CommandMap) f.get(Bukkit.getPluginManager());
+            }
+        } catch (NoSuchFieldException | IllegalArgumentException | IllegalAccessException | SecurityException e) {
+            e.printStackTrace();
+        }
+        return commandMap;
+    }
 
     public CommandManager(List<Class<?>> commandClasses, String command, JavaPlugin plugin) {
         this.plugin = plugin;
         this.mainCommand = command;
+        this.aliases = Collections.singletonList(command);
         locale = new Locale();
         this.commandValidator = new DefaultCommandValidator();
 
@@ -55,14 +100,19 @@ public class CommandManager {
         }
 
         PluginCommand pluginCommand = plugin.getCommand(command);
-
-        if (pluginCommand == null)
-            throw new RuntimeException("The /" + command + " command doesn't exist in plugin.yml!");
-
         pluginCommand.setExecutor(new CommandExecutor(this, plugin));
-        if (pluginCommand.getPlugin() != plugin) {
-            throw new RuntimeException("/" + command + " command is being handled by plugin other than " + plugin.getDescription().getName() + ". You must use /" + plugin.getName().toLowerCase() + ":" + command + " instead.");
-        }
+    }
+
+    public void register() {
+        registerCommand(getAliases());
+    }
+
+    public List<String> getAliases() {
+        return aliases;
+    }
+
+    public void addAlias(String alias) {
+        aliases.add(alias);
     }
 
     public Locale getLocale() {
