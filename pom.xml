@@ -10,7 +10,7 @@
 
     <properties>
         <plugin>CIFYLib</plugin>
-        <package>${groupId}.lib.plugin.${plugin}Plugin</package>
+        <package>${project.groupId}.lib.plugin.${plugin}Plugin</package>
     </properties>
 
     <build>
