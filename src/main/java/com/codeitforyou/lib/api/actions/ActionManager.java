@@ -1,7 +1,10 @@
 package com.codeitforyou.lib.api.actions;
 
+import com.codeitforyou.lib.api.general.JSONMessage;
 import com.codeitforyou.lib.api.general.StringUtil;
+import com.codeitforyou.lib.api.xseries.XSound;
 import com.google.common.collect.Maps;
+import net.md_5.bungee.chat.ComponentSerializer;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -38,6 +41,9 @@ public class ActionManager {
         addAction("message", CommandSender::sendMessage);
         addAction("chat", Player::chat);
         addAction("close", (player, data) -> player.closeInventory());
+        addAction("sound", (player, data) -> XSound.matchXSound(data).ifPresent(sound -> sound.playSound(player)));
+        addAction("json", (player, data) -> player.spigot().sendMessage(ComponentSerializer.parse(data)));
+
     }
 
     public void runActions(final Player player, final List<String> items) {

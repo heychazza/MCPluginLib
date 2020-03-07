@@ -6,7 +6,7 @@
 
     <groupId>com.codeitforyou</groupId>
     <artifactId>lib</artifactId>
-    <version>1.3.2-SNAPSHOT</version>
+    <version>1.3.3-SNAPSHOT</version>
 
     <properties>
         <plugin>CIFYLib</plugin>

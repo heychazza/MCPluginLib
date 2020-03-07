@@ -24,7 +24,7 @@ public class CommandManager {
     private String mainCommand;
     private List<String> aliases;
     private Method mainCommandMethod;
-    private static Locale locale;
+    private Locale locale;
     private CommandValidator commandValidator;
 
     private boolean mainCommandArgs = false;
@@ -68,7 +68,7 @@ public class CommandManager {
         this.plugin = plugin;
         this.mainCommand = command;
         this.aliases = new ArrayList<>();
-        locale = new Locale();
+        this.locale = new Locale();
         this.commandValidator = new DefaultCommandValidator();
 
         for (Class clazz : commandClasses) {
@@ -111,7 +111,7 @@ public class CommandManager {
     }
 
     public void setLocale(Locale locale) {
-        CommandManager.locale = locale;
+        this.locale = locale;
     }
 
     public Map<String, Method> getCommands() {
