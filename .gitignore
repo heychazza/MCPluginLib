@@ -5,3 +5,4 @@ out/
 server/
 spigotjars/
 *.iml
+src/main/java/com/codeitforyou/lib/plugin

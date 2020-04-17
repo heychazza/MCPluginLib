@@ -11,6 +11,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.*;
 
@@ -22,10 +23,12 @@ public class ItemBuilder {
     private String displayName = "";
     private List<String> lore = new ArrayList<>();
     private List<ItemFlag> flags = new ArrayList<>();
-    private Map<Enchantment, Integer> enchants = Maps.newConcurrentMap();
+    private final Map<Enchantment, Integer> enchants = Maps.newConcurrentMap();
 
     // NBT Data
-    private Map<String, String> nbtStrings = Maps.newConcurrentMap();
+    private final Map<String, String> nbtStrings = Maps.newConcurrentMap();
+
+    private String skullOwner;
 
     public ItemBuilder(Material material) {
         this.material = material;
@@ -87,6 +90,11 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder withSkullOwner(String owner) {
+        skullOwner = owner;
+        return this;
+    }
+
     @SuppressWarnings("deprecation")
     public ItemStack getItem() {
         ItemStack item = new ItemStack(material);
@@ -106,6 +114,15 @@ public class ItemBuilder {
         }
 
         item.setItemMeta(itemMeta);
+
+        if(skullOwner != null) {
+            SkullMeta skullMeta = (SkullMeta) item.getItemMeta();
+            if (skullMeta != null) {
+                skullMeta.setOwner(skullOwner);
+            }
+
+            item.setItemMeta(skullMeta);
+        }
 
         NBT nbtItem = NBT.get(item);
         nbtStrings.forEach(nbtItem::setString);
