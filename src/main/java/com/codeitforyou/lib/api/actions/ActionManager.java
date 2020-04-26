@@ -1,6 +1,6 @@
 package com.codeitforyou.lib.api.actions;
 
-import com.codeitforyou.lib.api.general.JSONMessage;
+import com.codeitforyou.lib.api.general.PAPIUtil;
 import com.codeitforyou.lib.api.general.StringUtil;
 import com.codeitforyou.lib.api.xseries.XSound;
 import com.google.common.collect.Maps;
@@ -48,8 +48,7 @@ public class ActionManager {
 
     public void runActions(final Player player, final List<String> items) {
         items.forEach(item -> {
-            String actionData = !item.contains(" ") ? "" : StringUtil.translate(item.split(" ", 2)[1]).replace("%player%", player.getName());
-
+            String actionData = !item.contains(" ") ? "" : PAPIUtil.parse(player, StringUtil.translate(item.split(" ", 2)[1]).replace("%player%", player.getName()));
             Action action = getAction(item);
 
             new BukkitRunnable() {
