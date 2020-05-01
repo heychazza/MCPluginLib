@@ -3,7 +3,7 @@ package com.codeitforyou.lib.api.xseries;
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2019 Crypto Morin
+ * Copyright (c) 2020 Crypto Morin
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -39,21 +39,14 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
-/* References
- *
- * * * GitHub: https://github.com/CryptoMorin/XSeries/blob/master/XEnchantment.java
- * * XSeries: https://www.spigotmc.org/threads/378136/
- * EssentialsX Enchantment: https://github.com/Bukkit/Bukkit/blob/master/src/main/java/org/bukkit/enchantments/Enchantment.java
- * Enchantment: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/enchantments/Enchantment.html
- * Enchanting: https://minecraft.gamepedia.com/Enchanting
- * ZEnchantment: https://github.com/CryptoMorin/XSeries/blob/master/ZEnchantment.java
- */
-
 /**
  * Up to 1.15 enchantment support with multiple aliases.
  * Uses EssentialsX enchantment list for aliases.
- * <p>
  * Enchantment levels do not start from 0, they start from 1
+ * <p>
+ * EssentialsX Enchantment: https://github.com/Bukkit/Bukkit/blob/master/src/main/java/org/bukkit/enchantments/Enchantment.java
+ * Enchantment: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/enchantments/Enchantment.html
+ * Enchanting: https://minecraft.gamepedia.com/Enchanting
  *
  * @author Crypto Morin
  * @version 1.0.1
@@ -288,6 +281,7 @@ public enum XEnchantment {
      * @return a Vanilla  enchantment.
      * @since 1.0.0
      */
+
     @SuppressWarnings("deprecation")
     public Enchantment parseEnchantment() {
         return ISFLAT ? Enchantment.getByKey(NamespacedKey.minecraft(this.getVanillaName().toLowerCase(Locale.ENGLISH)))

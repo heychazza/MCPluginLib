@@ -1,5 +1,4 @@
 package com.codeitforyou.lib.api.xseries;
-
 /*
  * The MIT License (MIT)
  *
