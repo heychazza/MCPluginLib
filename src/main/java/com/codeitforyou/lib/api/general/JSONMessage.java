@@ -922,7 +922,8 @@ public class JSONMessage {
          */
         public void setColor(ChatColor color) {
             if (!color.isColor()) {
-                throw new IllegalArgumentException(color.name() + " is not a color!");
+//                throw new IllegalArgumentException(color.name() + " is not a color!");
+                return;
             }
             this.color = color;
         }
@@ -942,7 +943,8 @@ public class JSONMessage {
                 throw new IllegalArgumentException("Style cannot be null!");
             }
             if (!style.isFormat()) {
-                throw new IllegalArgumentException(color.name() + " is not a style!");
+//                throw new IllegalArgumentException(color.name() + " is not a style!");
+                return;
             }
             styles.add(style);
         }
