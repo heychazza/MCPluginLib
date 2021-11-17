@@ -1,24 +1,53 @@
 # Spigot Plugin Library
-This is a lightweight and easy to use library for fast plugin creation. I created this merely as a base for all my plugins, without the need to manually copy classes many times throughout each project.
+A lightweight and easy to use library for fast plugin creation, built as a base for all my plugins, without the need to manually copy classes many times throughout each project.
 
 ## Features
-Our library comes with a few useful features to help with the base of the plugin, we look to expand this as we move forward.
+Our library comes with a few useful additions to help with boilerplate code, and we look to expand this as time goes on.
 
 ## Using the Library
-You'll need to add the Jitpack repository if you already haven't.
+
+#### Maven
+Add the following to your pom.xml
 ```xml
-<repository>
-    <id>jitpack.io</id>
-    <url>https://jitpack.io</url>
-</repository>
+<repositories>
+    <!-- Other repos.. -->
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
 ```
 
-Once you've done this, you'll need to add the dependency like such.
-   ```xml
+Then, add the following dependency to your pom.xml
+```xml
 <dependency>
-    <groupId>org.analyse.git.Official</groupId>
-    <artifactId>Lib</artifactId>
-    <version>77623fd72f</version>
+    <groupId>com.github.spigot-plugins</groupId>
+    <artifactId>spigot-plugin-library</artifactId>
+    <version>master-SNAPSHOT</version>
 </dependency>
-   ```
-Click [here](https://docs.codeitforyou.com/apis/lib/) to view our wiki for utilising our API.
+```
+
+#### Gradle
+Add the following to your build.gradle
+```groovy
+allprojects {
+    repositories {
+        maven {
+            url 'https://jitpack.io'
+        }
+    }
+}
+```
+
+Then, add the following dependency to your build.gradle
+```groovy
+dependencies {
+    compile 'com.github.heychazza:spigot-plugin-lib:master-SNAPSHOT'
+}
+```
+
+## Compiling
+You can compile the library by running the following command.
+```bash
+./gradlew shadowJar
+```
