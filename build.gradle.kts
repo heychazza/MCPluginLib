@@ -6,7 +6,6 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar;
 
 plugins {
     java
-    `maven-publish`
     id("com.github.johnrengelman.shadow") version "7.1.0"
 }
 
@@ -38,10 +37,4 @@ tasks.withType<ShadowJar> {
 
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
-}
-
-tasks {
-    build {
-        dependsOn(shadowJar)
-    }
 }
