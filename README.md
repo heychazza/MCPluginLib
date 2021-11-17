@@ -42,7 +42,7 @@ allprojects {
 Then, add the following dependency to your build.gradle
 ```groovy
 dependencies {
-    compile 'com.github.heychazza:spigot-plugin-lib:master-SNAPSHOT'
+    implementation 'com.github.heychazza:spigot-plugin-lib:master-SNAPSHOT'
 }
 ```
 
