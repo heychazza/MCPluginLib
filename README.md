@@ -1,3 +1,5 @@
+[![](https://jitpack.io/v/heychazza/spigot-plugin-lib.svg)](https://jitpack.io/#heychazza/spigot-plugin-lib)
+
 # Spigot Plugin Library
 A lightweight and easy to use library for fast plugin creation, built as a base for all my plugins, without the need to manually copy classes many times throughout each project.
 
