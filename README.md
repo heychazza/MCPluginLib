@@ -23,9 +23,9 @@ Add the following to your pom.xml
 Then, add the following dependency to your pom.xml
 ```xml
 <dependency>
-    <groupId>com.github.spigot-plugins</groupId>
-    <artifactId>spigot-plugin-library</artifactId>
-    <version>master-SNAPSHOT</version>
+    <groupId>com.github.heychazza</groupId>
+    <artifactId>spigot-plugin-lib</artifactId>
+    <version>v1.3.8</version>
 </dependency>
 ```
 
@@ -44,7 +44,7 @@ allprojects {
 Then, add the following dependency to your build.gradle
 ```groovy
 dependencies {
-    implementation 'com.github.heychazza:spigot-plugin-lib:master-SNAPSHOT'
+   implementation 'com.github.heychazza:spigot-plugin-lib:v1.3.8'
 }
 ```
 
